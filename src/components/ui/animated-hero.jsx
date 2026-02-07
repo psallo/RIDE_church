@@ -60,7 +60,7 @@ function Hero() {
             </h1>
 
             <p className="max-w-2xl text-center text-lg leading-relaxed tracking-tight text-muted-foreground md:text-xl">
-              다양한 세대가 먼저 회복되며 다음세대를 돕는 우리 교회
+              다양한 세대가 먼저 회복되어 다음세대를 돕는 우리 교회
             </p>
           </div>
         </div>

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { LayeredText } from "../components/ui/layered-test"
 import { Hero } from "../components/ui/animated-hero"
+import { BlurFadeTextDemo } from "../components/ui/demo"
+import { ComponentDemo } from "../components/ui/demo"
+import { Demo } from "../components/ui/demo"
 
 export default function Container() {
   return (
@@ -19,14 +22,23 @@ export default function Container() {
         </RightWrap>
       </MainWrap>
       <VideoWrap>
-            <iframe
-              src="https://www.youtube.com/embed/VTV4G77_FO0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=VTV4G77_FO0"
-              title="RIDE 영상"
-              frameBorder="0"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-            />
-          </VideoWrap>
+        <iframe
+          src="https://www.youtube.com/embed/VTV4G77_FO0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=VTV4G77_FO0"
+          title="RIDE 영상"
+          frameBorder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      </VideoWrap>
+      <Title>
+        <BlurFadeTextDemo />
+      </Title>
+      <Banner>
+        <ComponentDemo />
+      </Banner>
+      <Content>
+        <Demo />
+      </Content>
     </Mainwrapper>
   );
 }
@@ -70,7 +82,6 @@ const VideoWrap = styled.div`
   aspect-ratio: 16 / 9;
   overflow: hidden;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
-  margin-top: 3em;
   margin: auto;
 
   iframe {
@@ -79,3 +90,15 @@ const VideoWrap = styled.div`
     display: block;
   }
 `;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 8em;
+`
+
+const Banner = styled.div`
+  margin-top: 3em;
+`
+
+const Content = styled.div``
