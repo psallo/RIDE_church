@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { LayeredText } from "../components/ui/layered-test"
 import { Hero } from "../components/ui/animated-hero"
-import { BlurFadeTextDemo } from "../components/ui/demo"
-import { ComponentDemo } from "../components/ui/demo"
-import { Demo } from "../components/ui/demo"
+import { BlurFadeTextDemo, ComponentDemo, Demo } from "../components/ui/demo"
 
-export default function Container() {
+export default function Container({ lang = "ko" }) {
   return (
     <Mainwrapper>
       <MainWrap>
@@ -18,26 +16,26 @@ export default function Container() {
           />
         </LeftWrap>
         <RightWrap>
-          <Hero />
+          <Hero lang={lang} />
         </RightWrap>
       </MainWrap>
       <VideoWrap>
         <iframe
           src="https://www.youtube.com/embed/VTV4G77_FO0?autoplay=1&mute=1&playsinline=1&loop=1&playlist=VTV4G77_FO0"
-          title="RIDE 영상"
+          title={lang === "en" ? "RIDE Video" : "RIDE 영상"}
           frameBorder="0"
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
         />
       </VideoWrap>
       <Title>
-        <BlurFadeTextDemo />
+        <BlurFadeTextDemo lang={lang} />
       </Title>
       <Banner>
-        <ComponentDemo />
+        <ComponentDemo lang={lang} />
       </Banner>
       <Content>
-        <Demo />
+        <Demo lang={lang} />
       </Content>
     </Mainwrapper>
   );

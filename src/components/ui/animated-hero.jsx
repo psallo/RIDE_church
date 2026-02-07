@@ -2,19 +2,29 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { MoveRight } from "lucide-react";
 
-function Hero() {
+function Hero({ lang = "ko" }) {
   const [titleNumber, setTitleNumber] = useState(0);
 
-  const titles = useMemo(
-    () => [
-      "1. 예수님의 제자되는 교회\n(선교적 제자와 선교적 교회)",
-      "2. 다양한 세대가\n먼저 은혜 받는 교회",
-      "3. 다음 세대를 돕는 교회",
-      "4. 성령충만으로\n돌파하는 교회",
-      "5. 영적부흥을 경험하는 교회",
-    ],
-    []
-  );
+  const titles = useMemo(() => {
+    const copy = {
+      ko: [
+        "1. 예수님의 제자되는 교회\n(선교적 제자와 선교적 교회)",
+        "2. 다양한 세대가\n먼저 은혜 받는 교회",
+        "3. 다음 세대를 돕는 교회",
+        "4. 성령충만으로\n돌파하는 교회",
+        "5. 영적부흥을 경험하는 교회",
+      ],
+      en: [
+        "1. A church that becomes disciples of Jesus\n(Missional disciples and a missional church)",
+        "2. A church where generations\nreceive grace first",
+        "3. A church that helps the next generation",
+        "4. A church that breaks through\nby being filled with the Holy Spirit",
+        "5. A church that experiences spiritual revival",
+      ],
+    };
+
+    return copy[lang] ?? copy.ko;
+  }, [lang]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -33,7 +43,9 @@ function Hero() {
           <div className="flex flex-col gap-4">
             <h1 className="max-w-2xl text-center text-5xl font-regular tracking-tighter md:text-7xl">
               <span className="text-spektr-cyan-50 text-2xl md:text-4xl text-white bg-[#1f1f1f] px-3 py-1 rounded-sm inline-block">
-                2026 라이드처치 교회 목표
+                {lang === "en"
+                  ? "2026 Ride Church Goals"
+                  : "2026 라이드처치 교회 목표"}
               </span>
 
               <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1 text-3xl md:text-4xl tracking-wide leading-tight min-h-[4.8rem] md:min-h-[5.6rem]">
@@ -60,7 +72,9 @@ function Hero() {
             </h1>
 
             <p className="max-w-2xl text-center text-lg leading-relaxed tracking-tight text-muted-foreground md:text-xl">
-              다양한 세대가 먼저 회복되어 다음세대를 돕는 우리 교회
+              {lang === "en"
+                ? "A church where generations are restored first to help the next generation."
+                : "다양한 세대가 먼저 회복되어 다음세대를 돕는 우리 교회"}
             </p>
           </div>
         </div>

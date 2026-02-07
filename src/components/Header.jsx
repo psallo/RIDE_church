@@ -1,8 +1,28 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export default function Header() {
+export default function Header({ lang = "ko", onToggleLang }) {
   const [isOpen, setIsOpen] = useState(false);
+  const labels = {
+    ko: {
+      about: "교회 소개",
+      ministries: "교역자 소개",
+      news: "교회 소식",
+      contact: "오시는 길",
+      menu: "메뉴 열기",
+      lang: "EN",
+    },
+    en: {
+      about: "About",
+      ministries: "Staff",
+      news: "News",
+      contact: "Contact",
+      menu: "Open menu",
+      lang: "KO",
+    },
+  };
+  const copy = labels[lang] ?? labels.ko;
   return (
     <HeaderWrap>
       <HeaderInner>
@@ -11,7 +31,7 @@ export default function Header() {
         </Brand>
         <MenuButton
           type="button"
-          aria-label="메뉴 열기"
+          aria-label={copy.menu}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
         >
@@ -20,10 +40,44 @@ export default function Header() {
           <span />
         </MenuButton>
         <Nav data-open={isOpen}>
-          <a href="#about" onClick={() => setIsOpen(false)}>교회 소개</a>
-          <a href="#ministries" onClick={() => setIsOpen(false)}>교역자 소개</a>
-          <a href="#news" onClick={() => setIsOpen(false)}>교회 소식</a>
-          <a href="#contact" onClick={() => setIsOpen(false)}>오시는 길</a>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setIsOpen(false)}
+          >
+            {copy.about}
+          </NavLink>
+          <NavLink
+            to="/staff"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setIsOpen(false)}
+          >
+            {copy.ministries}
+          </NavLink>
+          <NavLink
+            to="/news"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setIsOpen(false)}
+          >
+            {copy.news}
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            onClick={() => setIsOpen(false)}
+          >
+            {copy.contact}
+          </NavLink>
+          <LangButton
+            type="button"
+            onClick={() => {
+              onToggleLang?.();
+              setIsOpen(false);
+            }}
+            aria-label="Toggle language"
+          >
+            {copy.lang}
+          </LangButton>
         </Nav>
       </HeaderInner>
     </HeaderWrap>
@@ -85,6 +139,35 @@ const Nav = styled.nav`
   display: flex;
   gap: 2em;
 
+  a,
+  button {
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+  }
+
+  a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  a.active::after {
+    transform: scaleX(1);
+  }
+
   @media (max-width: 768px) {
     position: absolute;
     top: 100%;
@@ -107,3 +190,5 @@ const Nav = styled.nav`
     }
   }
 `;
+
+const LangButton = styled.button``;

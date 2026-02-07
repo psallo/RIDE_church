@@ -17,27 +17,56 @@ const Word = ({ children, progress, range }) => {
 export const MagicText = ({
   text,
   containerClassName = "min-h-[50vh] flex items-center justify-center",
-  className = "flex flex-wrap leading-[0.5] p-4",
+  className = "flex flex-wrap leading-[0.5] p-4 max-w-[1200px]",
 }) => {
   const container = useRef(null);
+  const normalizedText = text.replace(/\\n/g, "\n");
 
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start 0.9", "end 1"],
   });
 
-  const words = text.split(" ");
+  const tokens = normalizedText
+    .split(/(\s+)/)
+    .flatMap((token) => {
+      if (!token.includes("\n")) return [token];
+      const parts = token.split("\n");
+      const expanded = [];
+      parts.forEach((part, index) => {
+        if (part) expanded.push(part);
+        if (index < parts.length - 1) expanded.push("\n");
+      });
+      return expanded;
+    });
 
   return (
     <div ref={container} className={containerClassName}>
       <p className={className}>
-        {words.map((word, i) => {
-          const start = i / words.length;
-          const end = start + 1 / words.length;
+        {tokens.map((token, i) => {
+          if (token === "") return null;
+
+          if (token === "\n") {
+            return <br key={`br-${i}`} />;
+          }
+
+          if (token.trim() === "") {
+            return (
+              <span key={`space-${i}`} aria-hidden="true">
+                {token}
+              </span>
+            );
+          }
+
+          const wordIndex =
+            tokens.slice(0, i + 1).filter((t) => t.trim()).length - 1;
+          const totalWords = tokens.filter((t) => t.trim()).length;
+          const start = wordIndex / totalWords;
+          const end = start + 1 / totalWords;
 
           return (
             <Word key={i} progress={scrollYProgress} range={[start, end]}>
-              {word}
+              {token}
             </Word>
           );
         })}
