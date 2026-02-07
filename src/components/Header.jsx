@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header({ lang = "ko", onToggleLang }) {
@@ -27,7 +27,7 @@ export default function Header({ lang = "ko", onToggleLang }) {
     <HeaderWrap>
       <HeaderInner>
         <Brand>
-          <BrandText href="/">RIDE</BrandText>
+          <BrandText to="/">RIDE</BrandText>
         </Brand>
         <MenuButton
           type="button"
@@ -107,7 +107,7 @@ const Brand = styled.div`
 `;
 
 
-const BrandText = styled.a`
+const BrandText = styled(Link)`
   color: inherit;
   text-decoration: none;
 `;
