@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+a,
+a:visited,
+a:hover,
+a:active,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-line: none;
+}
+
+.layered-text {
+  font-size: var(--lt-font-size);
+  line-height: var(--lt-line-height);
+}
+
+.layered-text__item {
+  height: var(--lt-height);
+  transform: translateX(var(--lt-translateX))
+    skew(var(--lt-skewX), var(--lt-skewY))
+    scaleY(var(--lt-scaleY));
+  box-sizing: border-box;
+}
+
+.layered-text__line {
+  height: var(--lt-height);
+  line-height: var(--lt-line-height-inner);
+}
+
+@media (max-width: 767px) {
+  .layered-text {
+    font-size: var(--lt-font-size-md);
+    line-height: var(--lt-line-height-md);
+  }
+
+  .layered-text__item {
+    height: calc(var(--lt-height-md) + 8px);
+    transform: translateX(var(--lt-translateX-md))
+      skew(var(--lt-skewX), var(--lt-skewY))
+      scaleY(var(--lt-scaleY));
+    padding-top: 4px;
+    padding-bottom: 4px;
+    overflow: hidden;
+  }
+
+  .layered-text__line {
+    height: var(--lt-height-md);
+    line-height: var(--lt-line-height-inner-md);
+  }
+}
