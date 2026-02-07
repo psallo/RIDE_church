@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Footer({ lang = "ko" }) {
   const copy = {
     ko: {
-      copyright: "© 2026 RIDE CHURCH. 모든 권리 보유.",
+      copyright: "© 2026 RIDE CHURCH. All rights reserved.",
       youtube: "유튜브",
       facebook: "페이스북",
     },
