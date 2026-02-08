@@ -3,6 +3,10 @@ import { Hero } from "@/components/ui/animated-hero";
 import Component from "@/components/ui/text-marque";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { MagicText } from "@/components/ui/magic-text";
+import ColorChangeCards from "@/components/ui/color-change-card";
+import { InView } from "@/components/ui/in-view";
+import { motion } from "framer-motion";
+import { HoverEffect } from "@/components/ui/hover-effect";
 
 
 function DemoOne() {
@@ -93,4 +97,80 @@ const Demo = ({ lang = "ko" }) => {
   );
 };
 
-export { DemoOne, HeroDemo, ComponentDemo, BlurFadeTextDemo, Demo };
+function DemoCard() {
+  return <ColorChangeCards />;
+}
+
+function InViewBasic() {
+  return (
+    <section className="w-full">
+      <div className="py-12 text-center text-sm">Scroll down</div>
+
+      <div className="flex min-h-[60vh] items-end justify-center px-4 pb-24">
+        <InView
+          variants={{
+            hidden: { opacity: 0, y: 100, filter: "blur(4px)" },
+            visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+          }}
+          viewOptions={{ margin: "0px 0px -200px 0px" }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+        >
+          <div className="max-w-[36rem] text-left">
+            <div className="flex justify-center pb-4">
+              <img src="/public/ride.png" alt="Ride" className="w-[150px] h-auto" />
+            </div>
+            <p className="text-lg">
+              <strong className="font-medium">
+                라이드처치는 예배, 기도와 말씀, 성령, 선교 공동체입니다.
+              </strong>{" "}
+              모든 성도들이 예수님의 제자로 살아가기를 기대하며, 다양한 세대가 함께 예배하며, 함께 성장하기를 꿈꿔 봅니다.
+              예수님과의 친밀함을 통해서 예수님의 제자가 되는 교회, 열방을 품는 교회로 예수님이 주인 되시는 교회가 되고자합니다.
+              예배와 성경공부를 통해 제자 되기를 힘쓰며 예수 그리스도의 다시 오심을 깨어서 준비하고, 기다리는 교회가 되고자 합니다.
+            </p>
+          </div>
+        </InView>
+      </div>
+      <div className="h-[20vh]" aria-hidden="true" />
+    </section>
+  );
+}
+
+
+function CardHoverEffectDemo() {
+  return (
+    <div className="mx-auto max-w-5xl px-8 bg-[#1f1f1f]">
+      <HoverEffect items={projects} />
+    </div>
+  );
+}
+
+export const projects = [
+  {
+    title: "주일 오전 예배",
+    description:
+      "주일 오전 11시",
+  },
+  {
+    title: "주일 어린이 예배",
+    description:
+      "주일 오전 11시",
+  },
+  {
+    title: "주일 청소년 예배",
+    description:
+      "주일 오전 11시",
+  },
+  {
+    title: "수요 온라인 예배",
+    description:
+      "수요일 저녁 8시",
+  },
+  {
+    title: "금요 저녁 예배",
+    description:
+      "금요일 저녁 8시",
+  },
+];
+
+
+export { DemoOne, HeroDemo, ComponentDemo, BlurFadeTextDemo, Demo, DemoCard, InViewBasic, CardHoverEffectDemo };
