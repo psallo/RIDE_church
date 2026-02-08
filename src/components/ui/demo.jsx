@@ -117,7 +117,7 @@ function InViewBasic() {
         >
           <div className="max-w-[36rem] text-left">
             <div className="flex justify-center pb-4">
-              <img src="/public/ride.png" alt="Ride" className="w-[150px] h-auto" />
+              <img src="/ride.png" alt="Ride" className="w-[150px] h-auto" />
             </div>
             <p className="text-lg">
               <strong className="font-medium">

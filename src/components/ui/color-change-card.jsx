@@ -8,22 +8,22 @@ const ColorChangeCards = () => {
         <Card
           heading="Restoration"
           description="A community where broken lives are restored in the love of God."
-          imgSrc="/public/re.png"
+          imgSrc="/re.png"
         />
         <Card
           heading="Intercession"
           description="A community that stands between God and the world through prayer."
-          imgSrc="/public/in.png"
+          imgSrc="/in.png"
         />
         <Card
           heading="Discipleship"
           description="A community growing to be more like Jesus through the Word."
-          imgSrc="/public/di.png"
+          imgSrc="/di.png"
         />
         <Card
           heading="Evangelism"
           description="A community that proclaims the Gospel in love and lives it out every day."
-          imgSrc="/public/ev.png"
+          imgSrc="/ev.png"
         />
       </div>
     </div>
