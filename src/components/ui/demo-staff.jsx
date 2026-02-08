@@ -4,7 +4,7 @@ const testimonialsByLang = {
   ko: [
     {
       image:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "/osh.png",
       text:
         "예배와 말씀을 통해 공동체가 함께 성장하는 모습을 보는 것이 큰 기쁨입니다.",
       name: "오승현 담임목사",
@@ -50,7 +50,7 @@ const testimonialsByLang = {
   en: [
     {
       image:
-        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "/osh.png",
       text:
         "It is a great joy to see our community grow together through worship and the Word.",
       name: "오승현 담임목사",
