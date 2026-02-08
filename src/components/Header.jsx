@@ -55,7 +55,7 @@ export default function Header({ lang = "ko", onToggleLang }) {
             {copy.ministries}
           </NavLink>
           <NavLink
-            to="/posts"
+            to="/news"
             className={({ isActive }) => (isActive ? "active" : "")}
             onClick={() => setIsOpen(false)}
           >
