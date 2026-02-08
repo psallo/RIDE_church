@@ -5,7 +5,7 @@ export default function Staff({ lang = "ko" }) {
   return (
     <PageWrap>
       <PageInner>
-        <TestimonialsDemo />
+        <TestimonialsDemo lang={lang} />
       </PageInner>
     </PageWrap>
   );
