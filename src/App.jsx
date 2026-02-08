@@ -35,7 +35,7 @@ export default function App() {
         <Route path="/" element={<Container lang={lang} />} />
         <Route path="/about" element={<About lang={lang} />} />
         <Route path="/staff" element={<Staff lang={lang} />} />
-        <Route path="/posts" element={<News lang={lang} />} />
+        <Route path="/news" element={<News lang={lang} />} />
         <Route path="/admin" element={<AdminBoard lang={lang} />} />
         <Route path="/contact" element={<Contact lang={lang} />} />
       </Routes>
