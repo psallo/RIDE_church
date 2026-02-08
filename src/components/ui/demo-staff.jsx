@@ -35,7 +35,7 @@ const testimonialsByLang = {
     {
       image: "https://i.imgur.com/TQIqsob.png",
       text:
-        "청년들이 예수님을 닮아가도록 함께 걷는 시간이 감사합니다.",
+        "청소년들이 예수님을 닮아가도록 함께 걷는 시간이 감사합니다.",
       name: "오영민 전도사",
       username: "abc@ride.com",
     },
@@ -81,7 +81,7 @@ const testimonialsByLang = {
     {
       image: "https://i.imgur.com/TQIqsob.png",
       text:
-        "I am grateful for this journey we walk together, as our young adults grow to be more like Jesus.",
+        "I am thankful for the journey we share as our youth grow to be more like Jesus.",
       name: "오영민 전도사",
       username: "abc@ride.com",
     },
