@@ -75,12 +75,14 @@ export function Testimonials({
                   </p>
                 </div>
 
-                <button
-                  onClick={() => openInNewTab(testimonial.social)}
-                  className="absolute right-4 top-4 transition-opacity hover:opacity-80"
-                >
-                  <Icons.twitter className="h-4 w-4" aria-hidden="true" />
-                </button>
+                {testimonial.social && (
+                  <button
+                    onClick={() => openInNewTab(testimonial.social)}
+                    className="absolute right-4 top-4 transition-opacity hover:opacity-80"
+                  >
+                    <Icons.twitter className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                )}
               </Card>
             ))}
         </div>

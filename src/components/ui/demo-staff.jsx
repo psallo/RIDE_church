@@ -8,7 +8,7 @@ const testimonialsByLang = {
       text:
         "예배와 말씀을 통해 공동체가 함께 성장하는 모습을 보는 것이 큰 기쁨입니다.",
       name: "오승현 담임목사",
-      username: "@alicejohnson",
+      username: "abc@ride.com",
     },
     {
       image:
@@ -16,35 +16,35 @@ const testimonialsByLang = {
       text:
         "함께 예배하고 섬기며, 다음 세대를 세워가는 일에 마음을 모읍니다.",
       name: "최영례 목사",
-      username: "@davidsmith",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/kaDy9hV.jpeg",
       text:
         "사랑 안에서 서로를 격려하며, 주님의 마음을 배워가는 공동체입니다.",
       name: "최은진 사모",
-      username: "@emmabrown",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/cRwFxtE.png",
       text:
         "말씀과 기도로 세상을 섬기며, 그리스도의 향기를 전합니다.",
       name: "서지웅 목사",
-      username: "@jameswilson",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/TQIqsob.png",
       text:
         "청년들이 예수님을 닮아가도록 함께 걷는 시간이 감사합니다.",
       name: "오영민 전도사",
-      username: "@sophialee",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/3ROmJ0S.png",
       text:
         "작은 섬김이 모여 큰 은혜로 이어지는 공동체를 꿈꿉니다.",
       name: "신승연 간사",
-      username: "@michaeldavis",
+      username: "abc@ride.com",
     },
   ],
   en: [
@@ -54,7 +54,7 @@ const testimonialsByLang = {
       text:
         "It is a great joy to see our community grow together through worship and the Word.",
       name: "오승현 담임목사",
-      username: "@alicejohnson",
+      username: "abc@ride.com",
     },
     {
       image:
@@ -62,35 +62,35 @@ const testimonialsByLang = {
       text:
         "As we worship and serve together, we unite our hearts in raising up the next generation.",
       name: "최영례 목사",
-      username: "@davidsmith",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/kaDy9hV.jpeg",
       text:
         "We are a community that encourages one another in love as we learn the heart of the Lord together.",
       name: "최은진 사모",
-      username: "@emmabrown",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/cRwFxtE.png",
       text:
         "We serve the world through the Word and prayer, spreading the fragrance of Christ.",
       name: "서지웅 목사",
-      username: "@jameswilson",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/TQIqsob.png",
       text:
         "I am grateful for this journey we walk together, as our young adults grow to be more like Jesus.",
       name: "오영민 전도사",
-      username: "@sophialee",
+      username: "abc@ride.com",
     },
     {
       image: "https://i.imgur.com/3ROmJ0S.png",
       text:
         "We dream of a community where small acts of service come together and overflow into great grace.",
       name: "신승연 간사",
-      username: "@michaeldavis",
+      username: "abc@ride.com",
     },
   ],
 };
