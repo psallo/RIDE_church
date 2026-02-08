@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
 export default function CardBoard() {
+  const lang =
+    typeof window !== "undefined"
+      ? localStorage.getItem("ride_lang") || "ko"
+      : "ko";
+  const title = lang === "en" ? "Church Updates" : "라이드처치 소식";
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -12,7 +17,7 @@ export default function CardBoard() {
   return (
     <section className="max-w-6xl mx-auto px-6 py-16">
       <h2 className="text-3xl font-semibold text-center my-[2em]">
-        라이드처치 소식
+        {title}
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
