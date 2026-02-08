@@ -1,15 +1,11 @@
 import styled from "styled-components";
+import { TestimonialsDemo } from "../components/ui/demo-staff"
 
 export default function Staff({ lang = "ko" }) {
   return (
     <PageWrap>
       <PageInner>
-        <h1>{lang === "en" ? "Staff" : "교역자 소개"}</h1>
-        <p>
-          {lang === "en"
-            ? "Meet our pastors and ministry leaders."
-            : "교역자와 사역 리더들을 소개합니다."}
-        </p>
+        <TestimonialsDemo />
       </PageInner>
     </PageWrap>
   );
