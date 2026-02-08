@@ -98,7 +98,7 @@ const testimonialsByLang = {
 function TestimonialsDemo({ lang = "ko" }) {
   const testimonials = testimonialsByLang[lang] ?? testimonialsByLang.ko;
   const title =
-    lang === "en" ? "Meet Our Team" : "교역자 소개";
+    lang === "en" ? "Meet Our Team" : "라이드처치를 섬기는 분들";
   const description =
     lang === "en"
       ? "A brief introduction to the people serving our community."
