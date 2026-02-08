@@ -2,13 +2,14 @@ import styled from "styled-components";
 import { DemoCard, InViewBasic, CardHoverEffectDemo } from "../components/ui/demo";
 
 export default function About({ lang = "ko" }) {
+  const title = lang === "en" ? "RIDE Worship Guide" : "라이드처치 예배 안내";
   return (
     <PageWrap>
       <PageInner>
-        <DemoCard />
-        <InViewBasic />
-        <Title>라이드처치 예배 안내</Title>
-        <CardHoverEffectDemo />
+        <DemoCard lang={lang} />
+        <InViewBasic lang={lang} />
+        <Title>{title}</Title>
+        <CardHoverEffectDemo lang={lang} />
       </PageInner>
     </PageWrap>
   );

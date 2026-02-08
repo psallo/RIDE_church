@@ -1,30 +1,65 @@
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 
-const ColorChangeCards = () => {
+const ColorChangeCards = ({ lang = "ko" }) => {
+  const cards =
+    lang === "en"
+      ? [
+          {
+            heading: "Restoration",
+            description: "A community where broken lives are restored in the love of God.",
+            imgSrc: "/re.png",
+          },
+          {
+            heading: "Intercession",
+            description: "A community that stands between God and the world through prayer.",
+            imgSrc: "/in.png",
+          },
+          {
+            heading: "Discipleship",
+            description: "A community growing to be more like Jesus through the Word.",
+            imgSrc: "/di.png",
+          },
+          {
+            heading: "Evangelism",
+            description: "A community that proclaims the Gospel in love and lives it out every day.",
+            imgSrc: "/ev.png",
+          },
+        ]
+      : [
+          {
+            heading: "회복(Restoration)",
+            description: "하나님의 사랑 안에서 깨어진 삶이 다시 일어나는 공동체",
+            imgSrc: "/re.png",
+          },
+          {
+            heading: "중보(Intercession)",
+            description: "기도로 세상과 하나님 사이에 서는 공동체",
+            imgSrc: "/in.png",
+          },
+          {
+            heading: "제자(Discipleship)",
+            description: "말씀 안에서 예수를 닮아가는 삶을 살아내는 공동체",
+            imgSrc: "/di.png",
+          },
+          {
+            heading: "선교(Evangelism)",
+            description: "사랑으로 복음을 전하고, 삶으로 복음을 증거하는 공동체",
+            imgSrc: "/ev.png",
+          },
+        ];
+
   return (
     <div className="p-4 py-12 md:p-8">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
-        <Card
-          heading="Restoration"
-          description="A community where broken lives are restored in the love of God."
-          imgSrc="/re.png"
-        />
-        <Card
-          heading="Intercession"
-          description="A community that stands between God and the world through prayer."
-          imgSrc="/in.png"
-        />
-        <Card
-          heading="Discipleship"
-          description="A community growing to be more like Jesus through the Word."
-          imgSrc="/di.png"
-        />
-        <Card
-          heading="Evangelism"
-          description="A community that proclaims the Gospel in love and lives it out every day."
-          imgSrc="/ev.png"
-        />
+        {cards.map((card) => (
+          <Card
+            key={card.heading}
+            heading={card.heading}
+            description={card.description}
+            imgSrc={card.imgSrc}
+          />
+        ))}
       </div>
     </div>
   );

@@ -97,11 +97,25 @@ const Demo = ({ lang = "ko" }) => {
   );
 };
 
-function DemoCard() {
-  return <ColorChangeCards />;
+function DemoCard({ lang = "ko" }) {
+  return <ColorChangeCards lang={lang} />;
 }
 
-function InViewBasic() {
+function InViewBasic({ lang = "ko" }) {
+  const copy =
+    lang === "en"
+      ? {
+          lead:
+            "Ride Church is a community of worship, prayer and the Word, the Holy Spirit, and mission.",
+          body:
+            "We hope all believers live as disciples of Jesus, and we dream of worshiping and growing together across generations. Through intimacy with Jesus, we seek to become His disciples and a church that embraces the nations, with Jesus as Lord. Through worship and Bible study, we strive to be disciples and stay awake, preparing for the return of Jesus Christ.",
+        }
+      : {
+          lead: "라이드처치는 예배, 기도와 말씀, 성령, 선교 공동체입니다.",
+          body:
+            "모든 성도들이 예수님의 제자로 살아가기를 기대하며, 다양한 세대가 함께 예배하며, 함께 성장하기를 꿈꿔 봅니다. 예수님과의 친밀함을 통해서 예수님의 제자가 되는 교회, 열방을 품는 교회로 예수님이 주인 되시는 교회가 되고자합니다. 예배와 성경공부를 통해 제자 되기를 힘쓰며 예수 그리스도의 다시 오심을 깨어서 준비하고, 기다리는 교회가 되고자 합니다.",
+        };
+
   return (
     <section className="w-full">
       <div className="py-12 text-center text-sm">Scroll down</div>
@@ -120,12 +134,8 @@ function InViewBasic() {
               <img src="/ride.png" alt="Ride" className="w-[150px] h-auto" />
             </div>
             <p className="text-lg">
-              <strong className="font-medium">
-                라이드처치는 예배, 기도와 말씀, 성령, 선교 공동체입니다.
-              </strong>{" "}
-              모든 성도들이 예수님의 제자로 살아가기를 기대하며, 다양한 세대가 함께 예배하며, 함께 성장하기를 꿈꿔 봅니다.
-              예수님과의 친밀함을 통해서 예수님의 제자가 되는 교회, 열방을 품는 교회로 예수님이 주인 되시는 교회가 되고자합니다.
-              예배와 성경공부를 통해 제자 되기를 힘쓰며 예수 그리스도의 다시 오심을 깨어서 준비하고, 기다리는 교회가 되고자 합니다.
+              <strong className="font-medium">{copy.lead}</strong>{" "}
+              {copy.body}
             </p>
           </div>
         </InView>
@@ -136,7 +146,54 @@ function InViewBasic() {
 }
 
 
-function CardHoverEffectDemo() {
+function CardHoverEffectDemo({ lang = "ko" }) {
+  const projects =
+    lang === "en"
+      ? [
+          {
+            title: "Sunday Morning Worship",
+            description: "Sundays 11:00 AM",
+          },
+          {
+            title: "Sunday Children's Worship",
+            description: "Sundays 11:00 AM",
+          },
+          {
+            title: "Sunday Youth Worship",
+            description: "Sundays 11:00 AM",
+          },
+          {
+            title: "Wednesday Online Worship",
+            description: "Wednesdays 8:00 PM",
+          },
+          {
+            title: "Friday Evening Worship",
+            description: "Fridays 8:00 PM",
+          },
+        ]
+      : [
+          {
+            title: "주일 오전 예배",
+            description: "주일 오전 11시",
+          },
+          {
+            title: "주일 어린이 예배",
+            description: "주일 오전 11시",
+          },
+          {
+            title: "주일 청소년 예배",
+            description: "주일 오전 11시",
+          },
+          {
+            title: "수요 온라인 예배",
+            description: "수요일 저녁 8시",
+          },
+          {
+            title: "금요 저녁 예배",
+            description: "금요일 저녁 8시",
+          },
+        ];
+
   return (
     <div className="mx-auto max-w-5xl px-8 bg-[#1f1f1f]">
       <HoverEffect items={projects} />
@@ -144,33 +201,6 @@ function CardHoverEffectDemo() {
   );
 }
 
-export const projects = [
-  {
-    title: "주일 오전 예배",
-    description:
-      "주일 오전 11시",
-  },
-  {
-    title: "주일 어린이 예배",
-    description:
-      "주일 오전 11시",
-  },
-  {
-    title: "주일 청소년 예배",
-    description:
-      "주일 오전 11시",
-  },
-  {
-    title: "수요 온라인 예배",
-    description:
-      "수요일 저녁 8시",
-  },
-  {
-    title: "금요 저녁 예배",
-    description:
-      "금요일 저녁 8시",
-  },
-];
 
 
 export { DemoOne, HeroDemo, ComponentDemo, BlurFadeTextDemo, Demo, DemoCard, InViewBasic, CardHoverEffectDemo };
