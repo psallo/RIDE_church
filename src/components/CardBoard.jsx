@@ -4,6 +4,8 @@ export default function CardBoard({ lang = 'ko' }) {
   const title = lang === 'en' ? 'Church Updates' : '라이드처치 소식';
   const [posts, setPosts] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(6);
+  const pageSize = 6;
 
   useEffect(() => {
     fetch('/posts')
@@ -11,12 +13,15 @@ export default function CardBoard({ lang = 'ko' }) {
       .then((data) => {
         console.log('Posts from /posts API:', data);
         setPosts(data);
+        setVisibleCount(6);
       })
       .catch((err) => {
         console.error('Failed to load posts', err);
         setPosts([]);
       });
   }, []);
+
+  const currentPosts = posts.slice(0, visibleCount);
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-16">
@@ -34,7 +39,7 @@ export default function CardBoard({ lang = 'ko' }) {
         </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {currentPosts.map((post) => (
             <article
               key={post.id}
               className="bg-white rounded-xl shadow-sm p-6
@@ -86,6 +91,24 @@ export default function CardBoard({ lang = 'ko' }) {
               </time>
             </article>
           ))}
+        </div>
+      )}
+
+      {posts.length > visibleCount && (
+        <div className="mt-10 flex items-center justify-center">
+          <button
+            type="button"
+            onClick={() =>
+              setVisibleCount((count) =>
+                Math.min(posts.length, count + pageSize)
+              )
+            }
+            className="px-5 py-2.5 text-sm rounded-full border border-[#1f1f1f]
+                       text-[#1f1f1f] hover:bg-[#1f1f1f] hover:text-white
+                       transition"
+          >
+            {lang === 'en' ? 'Load More' : '더보기'}
+          </button>
         </div>
       )}
 
