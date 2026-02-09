@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function CardBoard() {
-  const lang =
-    typeof window !== "undefined"
-      ? localStorage.getItem("ride_lang") || "ko"
-      : "ko";
+export default function CardBoard({ lang = "ko" }) {
   const title = lang === "en" ? "Church Updates" : "라이드처치 소식";
   const [posts, setPosts] = useState([]);
 

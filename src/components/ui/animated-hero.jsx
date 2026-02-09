@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MoveRight } from "lucide-react";
 
 function Hero({ lang = "ko" }) {
   const [titleNumber, setTitleNumber] = useState(0);
+  const [maxTitleHeight, setMaxTitleHeight] = useState(0);
+  const measureRefs = useRef([]);
 
   const titles = useMemo(() => {
     const copy = {
@@ -15,10 +17,10 @@ function Hero({ lang = "ko" }) {
         "5. 영적부흥을 경험하는 교회",
       ],
       en: [
-        "1. A church that becomes disciples of Jesus\n(Missional disciples and a missional church)",
-        "2. A church where generations\nreceive grace first",
+        "1. A church that becomes disciples of Jesus (Missional disciples and a missional church)",
+        "2. A church where generations receive grace first",
         "3. A church that helps the next generation",
-        "4. A church that breaks through\nby being filled with the Holy Spirit",
+        "4. A church that breaks through by being filled with the Holy Spirit",
         "5. A church that experiences spiritual revival",
       ],
     };
@@ -36,6 +38,27 @@ function Hero({ lang = "ko" }) {
     return () => clearInterval(intervalId);
   }, [titles.length]);
 
+  useLayoutEffect(() => {
+    const computeMaxHeight = () => {
+      let max = 0;
+      for (const el of measureRefs.current) {
+        if (!el) continue;
+        const { height } = el.getBoundingClientRect();
+        if (height > max) max = height;
+      }
+      if (max > 0) setMaxTitleHeight(Math.ceil(max));
+    };
+
+    const raf = requestAnimationFrame(computeMaxHeight);
+    const onResize = () => requestAnimationFrame(computeMaxHeight);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [titles]);
+
   return (
     <div className="w-full">
       <div className="container mx-auto">
@@ -48,8 +71,24 @@ function Hero({ lang = "ko" }) {
                   : "2026 라이드처치 교회 목표"}
               </span>
 
-              <span className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1 text-3xl md:text-4xl tracking-wide leading-tight min-h-[4.8rem] md:min-h-[5.6rem]">
+              <span
+                className="relative flex w-full justify-center overflow-hidden text-center md:pb-4 md:pt-1 text-3xl md:text-4xl tracking-wide leading-tight min-h-[4.8rem] md:min-h-[5.6rem]"
+                style={maxTitleHeight ? { height: `${maxTitleHeight}px` } : undefined}
+              >
                 &nbsp;
+                <span className="absolute left-0 top-0 w-full pointer-events-none invisible">
+                  {titles.map((title, index) => (
+                    <span
+                      key={`measure-${index}`}
+                      ref={(el) => {
+                        measureRefs.current[index] = el;
+                      }}
+                      className="block font-semibold whitespace-pre-line"
+                    >
+                      {title}
+                    </span>
+                  ))}
+                </span>
                 {titles.map((title, index) => (
                   <motion.span
                     key={index}
