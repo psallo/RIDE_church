@@ -340,7 +340,24 @@ export default function AdminBoard() {
         </form>
 
         <div className="mt-10 border-t pt-6">
-          <h2 className="text-lg font-semibold mb-4">Existing Posts</h2>
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <h2 className="text-lg font-semibold">
+              Existing Posts
+              {!listLoading && !listError && (
+                <span className="ml-2 text-sm text-gray-500">
+                  ({posts.length})
+                </span>
+              )}
+            </h2>
+            <button
+              type="button"
+              onClick={loadPosts}
+              className="px-3 py-1.5 text-sm rounded-md border border-gray-300
+                         text-gray-700 hover:bg-gray-50 transition"
+            >
+              Reload
+            </button>
+          </div>
 
           {listLoading && (
             <p className="text-sm text-gray-500">Loading posts...</p>
