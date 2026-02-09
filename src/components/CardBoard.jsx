@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export default function CardBoard({ lang = 'ko' }) {
   const title = lang === 'en' ? 'Church Updates' : '라이드처치 소식';
   const [posts, setPosts] = useState([]);
+  const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
     fetch('/posts')
@@ -42,14 +43,24 @@ export default function CardBoard({ lang = 'ko' }) {
             >
               {/* 🔹 이미지가 있을 때만 위에 표시 */}
               {post.image_url && (
-                <div className="-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-xl bg-slate-100">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveImage({
+                      src: post.image_url,
+                      title: post.title,
+                    })
+                  }
+                  className="-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-xl bg-slate-100
+                             block text-left focus:outline-none"
+                >
                   <img
                     src={post.image_url}
                     alt={post.title}
                     className="w-full h-48 object-cover"
                     // 일단 onError는 빼고, 깨져 보이더라도 확인해보자
                   />
-                </div>
+                </button>
               )}
 
               <h3 className="text-xl font-semibold mb-3 text-[#1f1f1f]">
@@ -75,6 +86,27 @@ export default function CardBoard({ lang = 'ko' }) {
               </time>
             </article>
           ))}
+        </div>
+      )}
+
+      {activeImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4"
+          onClick={() => setActiveImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            className="max-h-[90vh] max-w-[92vw] focus:outline-none"
+            onClick={() => setActiveImage(null)}
+          >
+            <img
+              src={activeImage.src}
+              alt={activeImage.title || 'Image preview'}
+              className="max-h-[90vh] max-w-[92vw] object-contain rounded-lg shadow-2xl"
+            />
+          </button>
         </div>
       )}
 
