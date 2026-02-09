@@ -19,8 +19,10 @@ export default function CardBoard({ lang = 'ko' }) {
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-16">
-      <h2 className="text-3xl font-semibold text-center my-[2em]">
-        {title}
+      <h2 className="text-3xl font-semibold text-center my-[2em] text-[#1f1f1f]">
+        <span className="inline-block border-b-4 border-[#1f1f1f] pb-2">
+          {title}
+        </span>
       </h2>
 
       {posts.length === 0 ? (
@@ -35,7 +37,8 @@ export default function CardBoard({ lang = 'ko' }) {
             <article
               key={post.id}
               className="bg-white rounded-xl shadow-sm p-6
-                         hover:shadow-md transition flex flex-col"
+                         border-t-4 border-[#1f1f1f] hover:shadow-md
+                         transition flex flex-col"
             >
               {/* 🔹 이미지가 있을 때만 위에 표시 */}
               {post.image_url && (
@@ -49,7 +52,7 @@ export default function CardBoard({ lang = 'ko' }) {
                 </div>
               )}
 
-              <h3 className="text-xl font-semibold mb-3">
+              <h3 className="text-xl font-semibold mb-3 text-[#1f1f1f]">
                 {post.title}
               </h3>
 
