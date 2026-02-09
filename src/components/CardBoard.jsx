@@ -7,7 +7,10 @@ export default function CardBoard({ lang = 'ko' }) {
   useEffect(() => {
     fetch('/posts')
       .then((res) => res.json())
-      .then((data) => setPosts(data))
+      .then((data) => {
+        console.log('Posts from /posts API:', data);
+        setPosts(data);
+      })
       .catch((err) => {
         console.error('Failed to load posts', err);
         setPosts([]);
@@ -34,17 +37,14 @@ export default function CardBoard({ lang = 'ko' }) {
               className="bg-white rounded-xl shadow-sm p-6
                          hover:shadow-md transition flex flex-col"
             >
-              {/* 이미지가 있을 때만 상단에 표시 */}
+              {/* 🔹 이미지가 있을 때만 위에 표시 */}
               {post.image_url && (
-                <div className="mb-4 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-xl bg-slate-100">
+                <div className="-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-xl bg-slate-100">
                   <img
                     src={post.image_url}
                     alt={post.title}
                     className="w-full h-48 object-cover"
-                    onError={(e) => {
-                      // 이미지 로딩 실패 시 그냥 숨기기
-                      e.currentTarget.style.display = 'none';
-                    }}
+                    // 일단 onError는 빼고, 깨져 보이더라도 확인해보자
                   />
                 </div>
               )}
@@ -53,7 +53,7 @@ export default function CardBoard({ lang = 'ko' }) {
                 {post.title}
               </h3>
 
-              <p className="text-gray-600 leading-relaxed mb-4 flex-1">
+              <p className="text-gray-600 leading-relaxed mb-4 flex-1 whitespace-pre-line">
                 {post.content}
               </p>
 
@@ -74,6 +74,11 @@ export default function CardBoard({ lang = 'ko' }) {
           ))}
         </div>
       )}
+
+      {/* 🔍 디버깅용: 실제 posts 구조 눈으로 보고 싶을 때 */}
+      {/* <pre className="mt-8 text-xs text-gray-500">
+        {JSON.stringify(posts, null, 2)}
+      </pre> */}
     </section>
   );
 }
