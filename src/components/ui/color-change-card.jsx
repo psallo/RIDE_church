@@ -84,12 +84,14 @@ const Card = ({ heading, description, imgSrc }) => {
       <div className="relative z-20 flex h-full flex-col justify-between p-4 text-slate-300 transition-colors duration-500 group-hover:text-white">
         <FiArrowRight className="ml-auto text-3xl transition-transform duration-500 group-hover:-rotate-45" />
         <div>
-          <h4>
+          <h4 style={{ textShadow: "0 0 2px rgba(0,0,0,0.6)" }}>
             {heading.split("").map((letter, index) => (
               <AnimatedLetter letter={letter} key={index} />
             ))}
           </h4>
-          <p>{description}</p>
+          <p style={{ textShadow: "0 0 2px rgba(0,0,0,0.6)" }}>
+            {description}
+          </p>
         </div>
       </div>
     </motion.div>
