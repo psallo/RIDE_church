@@ -84,14 +84,17 @@ const Demo = ({ lang = "ko" }) => {
       <MagicText
         text={texts[0]}
         containerClassName="min-h-[50vh] flex items-center justify-center pt-2 pb-4"
+        wordClassName="text-xl"
       />
       <MagicText
         text={texts[1]}
         containerClassName="min-h-[50vh] flex items-center justify-center pt-2 pb-4"
+        wordClassName="text-xl"
       />
       <MagicText
         text={texts[2]}
         containerClassName="min-h-[50vh] flex items-center justify-center pt-2 pb-4"
+        wordClassName="text-xl"
       />
     </>
   );

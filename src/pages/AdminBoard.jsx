@@ -41,6 +41,16 @@ export default function AdminBoard() {
   const [listLoading, setListLoading] = useState(false);
   const [listError, setListError] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [isAuthed, setIsAuthed] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      return sessionStorage.getItem('admin_authed') === '1';
+    } catch {
+      return false;
+    }
+  });
+  const [authError, setAuthError] = useState(null);
+  const [authLoading, setAuthLoading] = useState(false);
 
   // 미리보기용 변환 URL (입력은 원본 공유 링크 그대로 유지)
   const previewUrl = convertGoogleDriveUrl(imageUrl);
@@ -66,8 +76,37 @@ export default function AdminBoard() {
   };
 
   useEffect(() => {
-    loadPosts();
-  }, []);
+    if (isAuthed) {
+      loadPosts();
+    }
+  }, [isAuthed]);
+
+  const handleAuthSubmit = async (e) => {
+    e.preventDefault();
+    setAuthError(null);
+    setAuthLoading(true);
+    try {
+      const res = await fetch('/admin-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAuthError(data?.error || 'Unauthorized');
+        return;
+      }
+      setIsAuthed(true);
+      try {
+        sessionStorage.setItem('admin_authed', '1');
+      } catch {}
+    } catch (err) {
+      console.error(err);
+      setAuthError('Unexpected error occurred.');
+    } finally {
+      setAuthLoading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -191,30 +230,71 @@ export default function AdminBoard() {
     }
   };
 
+  if (!isAuthed) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
+          <h1 className="text-2xl font-semibold mb-6 text-center">
+            Ride Church Admin
+          </h1>
+          <form onSubmit={handleAuthSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Admin Password
+              </label>
+              <input
+                type="password"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2
+                           focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter admin password"
+                required
+              />
+            </div>
+            {authError && (
+              <div className="text-sm rounded-md px-3 py-2 bg-red-50 text-red-700">
+                {authError}
+              </div>
+            )}
+            <button
+              type="submit"
+              disabled={authLoading}
+              className="w-full rounded-lg bg-sky-600 text-white py-2.5 font-medium
+                         hover:bg-sky-700 disabled:opacity-60 disabled:cursor-not-allowed
+                         transition"
+            >
+              {authLoading ? 'Checking...' : 'Enter Admin'}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
       <div className="w-full max-w-xl bg-white rounded-2xl shadow-md p-8">
-        <h1 className="text-2xl font-semibold mb-6 text-center">
-          Ride Church Admin – New Post
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-semibold">
+            Ride Church Admin – New Post
+          </h1>
+          <button
+            type="button"
+            onClick={() => {
+              setIsAuthed(false);
+              setPassword('');
+              try {
+                sessionStorage.removeItem('admin_authed');
+              } catch {}
+            }}
+            className="text-sm text-gray-500 hover:text-gray-700"
+          >
+            Logout
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* 비밀번호 */}
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Admin Password
-            </label>
-            <input
-              type="password"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2
-                         focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter admin password"
-              required
-            />
-          </div>
-
           {/* 제목 */}
           <div>
             <label className="block text-sm font-medium mb-1">
