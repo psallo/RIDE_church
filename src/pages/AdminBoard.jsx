@@ -10,24 +10,24 @@ function convertGoogleDriveUrl(url) {
   if (!url) return '';
 
   try {
-    const parsed = new URL(url);
-
-    if (!parsed.hostname.includes('drive.google.com')) {
-      return url;
+    // https://drive.google.com/file/d/FILE_ID/view?... 에서 FILE_ID 추출
+    const match = url.match(/\/file\/d\/([^/]+)/);
+    if (!match || !match[1]) {
+      return url.trim();
     }
 
-    const pathMatch = parsed.pathname.match(/\/d\/([^/]+)/);
-    const fileId =
-      (pathMatch && pathMatch[1]) ||
-      parsed.searchParams.get('id');
+    const fileId = match[1];
 
-    if (!fileId) return '';
+    // 예전: uc?export=view
+    // return `https://drive.google.com/uc?export=view&id=${fileId}`;
 
-    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+    // 변경: thumbnail 엔드포인트 사용
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
   } catch {
-    return '';
+    return url.trim();
   }
 }
+
 
 export default function AdminBoard() {
   const [password, setPassword] = useState('');
