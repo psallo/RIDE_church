@@ -1,19 +1,31 @@
 import { useState } from 'react';
 
 // Google Drive 공유 링크를 직접 이미지 URL로 변환하는 헬퍼 함수
-// 예: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+// 지원 예시:
+// - https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+// - https://drive.google.com/open?id=FILE_ID
+// - https://drive.google.com/uc?id=FILE_ID&export=download
 //  → https://drive.google.com/uc?export=view&id=FILE_ID
 function convertGoogleDriveUrl(url) {
   if (!url) return '';
 
   try {
-    const match = url.match(/\/file\/d\/([^/]+)/);
-    if (!match || !match[1]) return url;
+    const parsed = new URL(url);
 
-    const fileId = match[1];
+    if (!parsed.hostname.includes('drive.google.com')) {
+      return url;
+    }
+
+    const pathMatch = parsed.pathname.match(/\/d\/([^/]+)/);
+    const fileId =
+      (pathMatch && pathMatch[1]) ||
+      parsed.searchParams.get('id');
+
+    if (!fileId) return '';
+
     return `https://drive.google.com/uc?export=view&id=${fileId}`;
   } catch {
-    return url;
+    return '';
   }
 }
 
@@ -22,6 +34,7 @@ export default function AdminBoard() {
   const [title, setTitle] = useState('');
   const [imageUrl, setImageUrl] = useState(''); // 🔹 Google Drive 이미지 URL
   const [content, setContent] = useState('');
+  const [previewFailed, setPreviewFailed] = useState(false);
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -129,13 +142,22 @@ export default function AdminBoard() {
               className="w-full rounded-lg border border-gray-300 px-3 py-2
                          focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
               value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              onChange={(e) => {
+                setImageUrl(e.target.value);
+                setPreviewFailed(false);
+              }}
               placeholder="https://drive.google.com/file/d/FILE_ID/view?..."
             />
             <p className="mt-1 text-xs text-gray-500">
               구글 드라이브에서 &quot;링크가 있는 모든 사용자&quot;로 공유한 뒤,
               공유 링크를 그대로 붙여넣으면 자동으로 이미지 주소로 변환돼요.
             </p>
+
+            {imageUrl && !previewUrl && (
+              <p className="mt-2 text-xs text-red-600">
+                공유 링크에서 파일 ID를 찾지 못했습니다. 링크 형식을 확인해 주세요.
+              </p>
+            )}
 
             {/* 이미지 미리보기 (선택) */}
             {previewUrl && (
@@ -147,11 +169,17 @@ export default function AdminBoard() {
                     alt="Preview"
                     className="max-h-56 object-contain"
                     onError={(e) => {
-                      // 로딩 실패 시 깨진 이미지 대신 아무것도 안 보이게
+                      // 로딩 실패 시 메시지 노출
                       e.currentTarget.style.display = 'none';
+                      setPreviewFailed(true);
                     }}
                   />
                 </div>
+                {previewFailed && (
+                  <p className="mt-2 text-xs text-red-600">
+                    이미지 로딩에 실패했습니다. 공유 설정이 "링크가 있는 모든 사용자"인지 확인해 주세요.
+                  </p>
+                )}
               </div>
             )}
           </div>
