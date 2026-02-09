@@ -100,3 +100,172 @@ export async function onRequestPost({ request, env }) {
     );
   }
 }
+
+// PUT: 게시글 수정 (비밀번호 검증 + 이미지 URL 수정)
+export async function onRequestPut({ request, env }) {
+  let data;
+  try {
+    data = await request.json();
+  } catch (e) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid JSON body' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  const { password, id, title, content, imageUrl } = data || {};
+
+  if (!password || password !== env.ADMIN_PASSWORD) {
+    return new Response(
+      JSON.stringify({ error: 'Unauthorized' }),
+      {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  if (!id) {
+    return new Response(
+      JSON.stringify({ error: 'Post id is required.' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  if (!title || !title.trim() || !content || !content.trim()) {
+    return new Response(
+      JSON.stringify({ error: 'Title and content are required.' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  const trimmedTitle = title.trim();
+  const trimmedContent = content.trim();
+  const trimmedImageUrl =
+    typeof imageUrl === 'string' && imageUrl.trim().length > 0
+      ? imageUrl.trim()
+      : null;
+
+  try {
+    const result = await env.DB
+      .prepare(
+        'UPDATE posts SET title = ?, content = ?, image_url = ? WHERE id = ?'
+      )
+      .bind(trimmedTitle, trimmedContent, trimmedImageUrl, id)
+      .run();
+
+    if (!result?.meta?.changes) {
+      return new Response(
+        JSON.stringify({ error: 'Post not found.' }),
+        {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ ok: true }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    return new Response(
+      JSON.stringify({
+        error: 'Internal Server Error',
+        detail: String(err),
+      }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+}
+
+// DELETE: 게시글 삭제 (비밀번호 검증)
+export async function onRequestDelete({ request, env }) {
+  let data;
+  try {
+    data = await request.json();
+  } catch (e) {
+    return new Response(
+      JSON.stringify({ error: 'Invalid JSON body' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  const { password, id } = data || {};
+
+  if (!password || password !== env.ADMIN_PASSWORD) {
+    return new Response(
+      JSON.stringify({ error: 'Unauthorized' }),
+      {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  if (!id) {
+    return new Response(
+      JSON.stringify({ error: 'Post id is required.' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+
+  try {
+    const result = await env.DB
+      .prepare('DELETE FROM posts WHERE id = ?')
+      .bind(id)
+      .run();
+
+    if (!result?.meta?.changes) {
+      return new Response(
+        JSON.stringify({ error: 'Post not found.' }),
+        {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
+    return new Response(
+      JSON.stringify({ ok: true }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    return new Response(
+      JSON.stringify({
+        error: 'Internal Server Error',
+        detail: String(err),
+      }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+  }
+}
