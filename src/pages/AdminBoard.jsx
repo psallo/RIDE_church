@@ -1,11 +1,32 @@
 import { useState } from 'react';
 
+// Google Drive 공유 링크를 직접 이미지 URL로 변환하는 헬퍼 함수
+// 예: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+//  → https://drive.google.com/uc?export=view&id=FILE_ID
+function convertGoogleDriveUrl(url) {
+  if (!url) return '';
+
+  try {
+    const match = url.match(/\/file\/d\/([^/]+)/);
+    if (!match || !match[1]) return url;
+
+    const fileId = match[1];
+    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  } catch {
+    return url;
+  }
+}
+
 export default function AdminBoard() {
   const [password, setPassword] = useState('');
   const [title, setTitle] = useState('');
+  const [imageUrl, setImageUrl] = useState(''); // 🔹 Google Drive 이미지 URL
   const [content, setContent] = useState('');
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // 미리보기용 변환 URL (입력은 원본 공유 링크 그대로 유지)
+  const previewUrl = convertGoogleDriveUrl(imageUrl);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,6 +34,9 @@ export default function AdminBoard() {
     setLoading(true);
 
     try {
+      // 실제 저장할 때는 변환된 URL 사용
+      const convertedImageUrl = convertGoogleDriveUrl(imageUrl);
+
       const res = await fetch('/posts', {
         method: 'POST',
         headers: {
@@ -22,6 +46,7 @@ export default function AdminBoard() {
           password,
           title,
           content,
+          imageUrl: convertedImageUrl, // 🔹 변환된 URL로 전송
         }),
       });
 
@@ -40,9 +65,9 @@ export default function AdminBoard() {
         message: 'Post has been created successfully.',
       });
       setTitle('');
+      setImageUrl('');
       setContent('');
-      // 비밀번호는 유지하거나 초기화는 취향대로
-      // setPassword('');
+      // setPassword(''); // 필요하면 비밀번호도 초기화
     } catch (err) {
       console.error(err);
       setStatus({
@@ -92,6 +117,43 @@ export default function AdminBoard() {
               placeholder="예: 주일예배 안내"
               required
             />
+          </div>
+
+          {/* Google Drive 이미지 URL */}
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Google Drive Image URL (optional)
+            </label>
+            <input
+              type="text"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              placeholder="https://drive.google.com/file/d/FILE_ID/view?..."
+            />
+            <p className="mt-1 text-xs text-gray-500">
+              구글 드라이브에서 &quot;링크가 있는 모든 사용자&quot;로 공유한 뒤,
+              공유 링크를 그대로 붙여넣으면 자동으로 이미지 주소로 변환돼요.
+            </p>
+
+            {/* 이미지 미리보기 (선택) */}
+            {previewUrl && (
+              <div className="mt-3">
+                <p className="text-xs text-gray-500 mb-1">미리보기:</p>
+                <div className="border rounded-lg overflow-hidden max-h-56 flex items-center justify-center bg-slate-100">
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="max-h-56 object-contain"
+                    onError={(e) => {
+                      // 로딩 실패 시 깨진 이미지 대신 아무것도 안 보이게
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* 내용 */}
