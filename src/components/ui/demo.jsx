@@ -73,8 +73,8 @@ const Demo = ({ lang = "ko" }) => {
       "네 장막터를 넓히며 네 처소의 휘장을 아끼지 말고 널리 펴되 너의 줄을 길게 하며 너의 말뚝을 견고히 할지어다 이는 네가 좌우로 퍼지며 네 자손은 열방을 얻으며 황폐한 성읍들을 사람 살 곳이 되게 할 것임이라.\n(이사야 54:2~3)",
     ],
     en: [
-      "The increase of His government and peace will have no end. He will reign on David's throne and over his kingdom, establishing and upholding it with justice and righteousness from that time on and forever. The zeal of the LORD Almighty will accomplish this.\n(Isaiah 9:7)",
-      "This will be the sign for you: This year you will eat what grows by itself, and in the second year what springs from that. But in the third year sow and reap, plant vineyards and eat their fruit. Once more a remnant of the kingdom of Judah will take root below and bear fruit above. For out of Jerusalem will come a remnant, and out of Mount Zion a band of survivors. The zeal of the LORD Almighty will accomplish this.\n(Isaiah 37:30–32)",
+      "Of the greatness of his government and peace there will be no end. He will reign on David's throne and over his kingdom, establishing and upholding it with justice and righteousness from that time on and forever. The zeal of the LORD Almighty will accomplish this.\n(Isaiah 9:7)",
+      "'This will be the sign for you, Hezekiah:'This year you will eat what grows by itself, and the second year what springs from that. But in the third year sow and reap, plant vineyards and eat their fruit. Once more a remnant of the kingdom of Judah will take root below and bear fruit above. For out of Jerusalem will come a remnant, and out of Mount Zion a band of survivors. The zeal of the LORD Almighty will accomplish this.\n(Isaiah 37:30–32)",
       "Enlarge the place of your tent, stretch your tent curtains wide, do not hold back; lengthen your cords, strengthen your stakes. For you will spread out to the right and to the left; your descendants will dispossess nations and settle in their desolate cities.\n(Isaiah 54:2–3)",
     ],
   };
