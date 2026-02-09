@@ -26,9 +26,7 @@ export default function CardBoard({ lang = 'ko' }) {
   return (
     <section className="max-w-6xl mx-auto px-6 py-16">
       <h2 className="text-3xl font-semibold text-center my-[2em] text-[#1f1f1f]">
-        <span className="inline-block border-b-4 border-[#1f1f1f] pb-2">
-          {title}
-        </span>
+        {title}
       </h2>
 
       {posts.length === 0 ? (
